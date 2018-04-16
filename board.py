@@ -4,7 +4,32 @@ class Board:
 
     def __init__(self, game):
         self.game = game
-        self.newGame()
+
+    def waitNamePlayer(self):
+        self.window = Tk()
+        self.window['bg'] = 'white'
+
+        self.label = Label(self.window, text="Your name")
+        self.label.pack()
+
+        self.value = StringVar()
+        self.entree = Entry(self.window, textvariable=self.value, width=30)
+        self.entree.pack()
+
+        self.bouton = Button(self.window, text="Valid", command=self.definePlayerName)
+        self.bouton.pack()
+        self.launch()
+
+    def waitingScreen(self):
+
+        self.label.pack_forget()
+        self.entree.pack_forget()
+        self.bouton.pack_forget()
+
+        self.label = Label(self.window, text="Waiting for another player...")
+        self.label.pack()
+
+        self.game.connectingToServer()
 
     def newGame(self):
         self.coordBoard = [[[0, 0], [200, 200]],
@@ -67,3 +92,7 @@ class Board:
 
     def getBoard(self):
         return self.board
+
+    def definePlayerName(self):
+        self.game.setPlayerName(self.value.get())
+        self.waitingScreen()

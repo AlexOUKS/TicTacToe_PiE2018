@@ -1,21 +1,31 @@
+import socket, sys
+
 class Game:
 
-    def __init__(self, player1, player2):
-        self.player1 = player1
-        self.player2 = player2
+    def __init__(self, player):
+        self.player = player
+
+    def connectingToServer(self):
+        self.connexion_with_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connexion_with_server.connect(('127.0.0.1', 50000))
+        self.connexion_with_server.send(b"Je viens d'accepter la connexion")
+        while 1:
+            data = self.connexion_with_server.recv(4096)
+            print(str(data))
+
 
     def startGame(self):
         self.board.launch()
-        self.player1.setisTurn(True)
-        self.player2.setisTurn(False)
+       # self.player1.setisTurn(True)
+       # self.player2.setisTurn(False)
 
     def changeTurn(self):
-        if (self.player1.isTurn):
-            self.player2.isTurn = True
-            self.player1.isTurn = False
-        else:
-            self.player2.isTurn = False
-            self.player1.isTurn = True
+     #   if (self.player1.isTurn):
+     #       self.player2.isTurn = True
+     #       self.player1.isTurn = False
+      #  else:
+      #      self.player2.isTurn = False
+      #      self.player1.isTurn = True
         self.checkWin()
 
     def checkWin(self):
@@ -31,11 +41,10 @@ class Game:
                         self.board.endGame(1)
 
 
-    def getPlayer1(self):
-        return self.player1
-
-    def getPlayer2(self):
-        return self.player2
+    def setPlayerName(self, name):
+        self.player.setName(name)
+        self.board.waitingScreen()
 
     def setBoard(self, board):
         self.board = board
+        self.board.waitNamePlayer()
