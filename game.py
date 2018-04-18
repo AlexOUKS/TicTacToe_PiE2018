@@ -5,9 +5,9 @@ class Game:
         self.player2 = player2
 
     def startGame(self):
-        self.board.launch()
         self.player1.setisTurn(True)
         self.player2.setisTurn(False)
+        self.board.launch()
 
     def changeTurn(self):
         if (self.player1.isTurn):
@@ -26,9 +26,11 @@ class Game:
             if ((array[valid[i][0]] != 0) & (array[valid[i][1]] != 0) & (array[valid[i][2]] != 0)):
                 if ((array[valid[i][0]] == array[valid[i][1]] & array[valid[i][1]] == array[valid[i][2]] & array[valid[i][0]] == array[valid[i][2]])):
                     if (array[valid[i][0]] == 1):
-                        self.board.endGame(2)
-                    else:
                         self.board.endGame(1)
+                        return True
+                    elif (array[valid[i][0]] == 2):
+                        self.board.endGame(2)
+                        return True
 
 
     def getPlayer1(self):

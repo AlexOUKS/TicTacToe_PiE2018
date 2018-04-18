@@ -52,10 +52,10 @@ class Board:
                         self.canvas.create_line(x2, y1, x1, y2)
                         self.board[i] = 1
                     else:
-                        ligne1 = self.canvas.create_line(200, 0, 200, 600)
                         self.canvas.create_oval(x1, y1, x2, y2, outline="#1f1", width=2)
                         self.board[i] = 2
                     self.game.changeTurn()
+                    return self.board
 
 
     def launch(self):
@@ -67,3 +67,6 @@ class Board:
 
     def getBoard(self):
         return self.board
+
+    def setBoard(self, board):
+        self.board = board
